@@ -1,0 +1,116 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Davi AI - Video Creator</title>
+<style>
+*{box-sizing:border-box}
+body{margin:0;background:#0b1020;color:white;font-family:Arial,sans-serif}
+header{padding:20px;background:#111a30;display:flex;justify-content:space-between;align-items:center}
+.logo{font-size:25px;font-weight:bold;color:#a78bfa}
+.tag{color:#c4b5fd;font-size:12px}
+main{max-width:750px;margin:auto;padding:24px 16px}
+h1{font-size:34px;margin-bottom:8px}
+p{color:#aab5ca;line-height:1.5}
+.panel{background:#151e34;padding:20px;border-radius:16px;margin-top:22px}
+.tabs{display:flex;gap:10px;margin:18px 0}
+button{border:0;padding:13px;border-radius:10px;cursor:pointer;font-weight:bold}
+.tab{flex:1;background:#26334f;color:white}
+.tab.active,.generate{background:#8055e8;color:white}
+label{display:block;margin:16px 0 8px}
+textarea{width:100%;height:120px;background:#0b1020;border:1px solid #35415c;border-radius:10px;padding:14px;color:white;resize:vertical}
+input[type=file]{width:100%;padding:12px;background:#0b1020;color:white;border-radius:10px}
+.generate{width:100%;margin-top:18px;font-size:16px}
+.preview{margin-top:20px;text-align:center;background:#0b1020;border-radius:12px;padding:15px;min-height:100px}
+.preview img{max-width:100%;max-height:300px;border-radius:10px}
+.hidden{display:none}
+footer{text-align:center;padding:30px;color:#8390a8;font-size:13px}
+</style>
+</head>
+<body>
+<header>
+<div class="logo">✦ DAVI AI</div>
+<div class="tag">YOUR AI VIDEO STUDIO</div>
+</header>
+
+<main>
+<h1>Create your imagination.</h1>
+<p>Turn your words and pictures into cinematic videos with Davi AI.</p>
+
+<div class="panel">
+<h2>🎬 Create a video</h2>
+
+<div class="tabs">
+<button class="tab active" id="textTab" onclick="showMode('text')">Text to Video</button>
+<button class="tab" id="imageTab" onclick="showMode('image')">Image to Video</button>
+</div>
+
+<div id="textMode">
+<label>Describe your video</label>
+<textarea id="textPrompt" placeholder="Example: A young man walking through a rainy city at night, cinematic lighting..."></textarea>
+</div>
+
+<div id="imageMode" class="hidden">
+<label>Upload your picture</label>
+<input type="file" id="imageUpload" accept="image/*">
+<label>Describe the movement</label>
+<textarea id="imagePrompt" placeholder="Example: Make the person smile and slowly turn their head..."></textarea>
+</div>
+
+<button class="generate" onclick="generateVideo()">✦ Generate Video</button>
+
+<div class="preview" id="preview">
+<p>Your video preview will appear here.</p>
+</div>
+</div>
+
+<div class="panel">
+<h2>About Davi AI</h2>
+<p>Davi AI is your creative video studio. Create stories, animate pictures and bring your imagination to life.</p>
+</div>
+</main>
+
+<footer>© 2026 Davi AI. All rights reserved.</footer>
+
+<script>
+let mode='text';
+
+function showMode(selected){
+mode=selected;
+document.getElementById('textMode').classList.toggle('hidden',mode!=='text');
+document.getElementById('imageMode').classList.toggle('hidden',mode!=='image');
+document.getElementById('textTab').classList.toggle('active',mode==='text');
+document.getElementById('imageTab').classList.toggle('active',mode==='image');
+}
+
+document.getElementById('imageUpload').addEventListener('change',function(){
+const file=this.files[0];
+if(!file)return;
+if(!file.type.startsWith('image/'))return;
+const url=URL.createObjectURL(file);
+document.getElementById('preview').innerHTML='<img src="'+url+'" alt="Uploaded image"><p>Image uploaded successfully.</p>';
+});
+
+function generateVideo(){
+const prompt=mode==='text'
+?document.getElementById('textPrompt').value.trim()
+:document.getElementById('imagePrompt').value.trim();
+
+if(!prompt){
+alert('Please describe the video first.');
+return;
+}
+
+if(mode==='image'&&!document.getElementById('imageUpload').files.length){
+alert('Please upload an image first.');
+return;
+}
+
+alert('Your Davi AI request is ready! The video generation engine will be connected in our next development step.');
+}
+</script>
+</body>
+  </html>
+  
